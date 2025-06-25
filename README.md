@@ -39,5 +39,5 @@ fossee_theme.js – Slider, nav toggle, scroll behavior
 👤 Author
 Chebrolu Chaithanya
 B.Tech CSE – Koneru Lakshmaiah Education Foundation
-Web Development Intern (2024–25)
+Web Development Intern (MAY 2025 – JULY 2025)
 FOSSEE, Indian Institute of Technology Bombay
