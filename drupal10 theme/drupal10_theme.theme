@@ -1,0 +1,147 @@
+<?php
+
+/**
+ * @file
+ * Functions to support theming in the FOSSEE theme.
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_form_system_theme_settings_alter().
+ */
+function fossee_theme_form_system_theme_settings_alter(&$form, FormStateInterface $form_state) {
+  $form['fossee_settings'] = [
+    '#type' => 'details',
+    '#title' => t('FOSSEE Theme Settings'),
+    '#open' => TRUE,
+  ];
+
+  // Primary color
+  $form['fossee_settings']['primary_color'] = [
+    '#type' => 'color',
+    '#title' => t('Primary Color'),
+    '#default_value' => theme_get_setting('primary_color') ?: '#ff6b35',
+    '#description' => t('Choose the primary color for the theme.'),
+  ];
+
+  // Hero Slider Images
+  $form['fossee_settings']['hero_slider_images'] = [
+    '#type' => 'managed_file',
+    '#title' => t('Hero Slider Images'),
+    '#multiple' => TRUE,
+    '#upload_location' => 'public://hero-slider/',
+    '#upload_validators' => [
+      'file_validate_extensions' => ['png gif jpg jpeg'],
+      'file_validate_size' => [2 * 1024 * 1024],
+    ],
+    '#default_value' => theme_get_setting('hero_slider_images'),
+    '#description' => t('Upload images for the hero slider.'),
+  ];
+
+  // Footer Text
+  $form['fossee_settings']['footer_text'] = [
+    '#type' => 'textarea',
+    '#title' => t('Footer Text'),
+    '#default_value' => theme_get_setting('footer_text') ?: 'FOSSEE, IIT Bombay',
+    '#description' => t('Enter footer text.'),
+  ];
+
+  // Social media toggle
+  $form['fossee_settings']['show_social_links'] = [
+    '#type' => 'checkbox',
+    '#title' => t('Show Social Media Links'),
+    '#default_value' => theme_get_setting('show_social_links') ?: TRUE,
+  ];
+
+  // Expand logo section
+  $form['logo']['#open'] = TRUE;
+
+  // IITB and FOSSEE logos
+  foreach (['iitb_logo' => 'IITB', 'fossee_logo' => 'FOSSEE'] as $key => $label) {
+    $form['fossee_settings'][$key] = [
+      '#type' => 'managed_file',
+      '#title' => t("$label Logo"),
+      '#upload_location' => 'public://logos/',
+      '#upload_validators' => [
+        'file_validate_extensions' => ['png gif jpg jpeg'],
+        'file_validate_size' => [1 * 1024 * 1024],
+      ],
+      '#default_value' => theme_get_setting($key),
+      '#description' => t("Upload $label logo image."),
+    ];
+  }
+
+  // Social media URLs
+  $form['fossee_settings']['social_media'] = [
+    '#type' => 'details',
+    '#title' => t('Social Media Links'),
+    '#open' => TRUE,
+    '#states' => [
+      'visible' => [
+        ':input[name="show_social_links"]' => ['checked' => TRUE],
+      ],
+    ],
+  ];
+
+  $platforms = ['facebook', 'youtube', 'linkedin', 'instagram'];
+  foreach ($platforms as $platform) {
+    $form['fossee_settings']['social_media']["{$platform}_url"] = [
+      '#type' => 'url',
+      '#title' => t(ucfirst($platform) . ' URL'),
+      '#default_value' => theme_get_setting("{$platform}_url") ?: '#',
+      '#description' => t("Enter the URL for your " . ucfirst($platform) . " page."),
+    ];
+  }
+}
+
+/**
+ * Implements hook_preprocess_page().
+ */
+function fossee_theme_preprocess_page(&$variables) {
+  $variables['primary_color'] = theme_get_setting('primary_color') ?: '#ff6b35';
+  $variables['footer_text'] = theme_get_setting('footer_text') ?: 'FOSSEE, IIT Bombay';
+  $variables['show_social_links'] = theme_get_setting('show_social_links') ?: TRUE;
+
+  $file_storage = \Drupal::entityTypeManager()->getStorage('file');
+
+  // Hero slider images
+  $slider_images = theme_get_setting('hero_slider_images') ?: [];
+  $variables['hero_slider_images'] = [];
+  foreach ($file_storage->loadMultiple($slider_images) as $file) {
+    $variables['hero_slider_images'][] = [
+      'url' => $file->createFileUrl(),
+      'alt' => $file->getFilename(),
+    ];
+  }
+
+  // IITB and FOSSEE logos
+  foreach (['iitb_logo', 'fossee_logo'] as $logo_key) {
+    if ($fid = theme_get_setting($logo_key)) {
+      if ($file = $file_storage->load($fid)) {
+        $variables["{$logo_key}_url"] = $file->createFileUrl();
+      }
+    }
+  }
+
+  // Social media URLs
+  foreach (['facebook', 'youtube', 'linkedin', 'instagram'] as $platform) {
+    $variables["{$platform}_url"] = theme_get_setting("{$platform}_url") ?: '#';
+  }
+}
+
+/**
+ * Implements hook_preprocess_html().
+ */
+function fossee_theme_preprocess_html(&$variables) {
+  $variables['attributes']['class'][] = 'fossee-theme';
+}
+
+/**
+ * Implements hook_theme_suggestions_page_alter().
+ */
+function fossee_theme_theme_suggestions_page_alter(array &$suggestions, array $variables) {
+  if ($node = \Drupal::routeMatch()->getParameter('node')) {
+    $suggestions[] = 'page__' . $node->bundle();
+  }
+}

@@ -1,0 +1,168 @@
+{#
+/**
+ * @file
+ * FOSSEE theme implementation to display a single page.
+ */
+#}
+<div class="layout-container">
+
+  {# Top Banner Section #}
+  {% if page.top_banner %}
+    <div class="top-banner-section">
+      <div class="container">
+        {{ page.top_banner }}
+      </div>
+    </div>
+  {% endif %}
+
+  {# Header Section #}
+  <header class="header-section" role="banner">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-6">
+          {% if logo %}
+            <a href="{{ path('<front>') }}" title="{{ 'Home'|t }}" rel="home" class="logo">
+              <img src="{{ logo }}" alt="{{ 'Home'|t }}" class="img-fluid" />
+            </a>
+          {% endif %}
+          {% if site_name %}
+            <h1 class="site-name">
+              <a href="{{ path('<front>') }}" title="{{ 'Home'|t }}" rel="home">{{ site_name }}</a>
+            </h1>
+          {% endif %}
+          {% if site_slogan %}
+            <div class="site-slogan">{{ site_slogan }}</div>
+          {% endif %}
+        </div>
+        <div class="col-md-6">
+          {{ page.header }}
+        </div>
+      </div>
+    </div>
+  </header>
+
+  {# Navigation Section #}
+  {% if page.navigation %}
+    <nav class="navigation-section" role="navigation">
+      <div class="container">
+        {{ page.navigation }}
+      </div>
+    </nav>
+  {% endif %}
+
+  {# Hero Section #}
+  {% if page.hero_section or hero_slider_images %}
+    <section class="hero-section">
+      <div class="container-fluid">
+        <div class="hero-slider">
+          {% for image in hero_slider_images %}
+            <div class="hero-slide">
+              <img src="{{ image.url }}" alt="{{ image.alt }}" class="img-fluid" />
+            </div>
+          {% endfor %}
+          {{ page.hero_section }}
+        </div>
+      </div>
+    </section>
+  {% endif %}
+
+  {# Main Content Area #}
+  <main class="main-content" role="main">
+    <div class="container">
+      <div class="row">
+        {% if page.news_notice %}
+          <div class="col-md-8">
+            <section class="news-notice-section">
+              <h2>{{ 'Current News'|t }}</h2>
+              {{ page.news_notice }}
+            </section>
+          </div>
+          <div class="col-md-4">
+            {{ page.content }}
+          </div>
+        {% else %}
+          <div class="col-md-12">
+            {{ page.content }}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </main>
+
+  {# Activity Section #}
+  {% if page.activity_section %}
+    <section class="activity-section">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            {{ page.activity_section }}
+          </div>
+        </div>
+      </div>
+    </section>
+  {% endif %}
+
+  {# Features Section #}
+  {% if page.features_section %}
+    <section class="features-section">
+      <div class="container">
+        {{ page.features_section }}
+      </div>
+    </section>
+  {% endif %}
+
+  {# Footer Section #}
+  {% if page.footer %}
+    <footer class="footer-section" role="contentinfo">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="footer-logos">
+              {% if iitb_logo_url %}
+                <div class="footer-logo iitb-logo">
+                  <img src="{{ iitb_logo_url }}" alt="IIT Bombay" class="img-fluid" />
+                </div>
+              {% endif %}
+              {% if fossee_logo_url %}
+                <div class="footer-logo fossee-logo">
+                  <img src="{{ fossee_logo_url }}" alt="FOSSEE" class="img-fluid" />
+                </div>
+              {% endif %}
+            </div>
+          </div>
+          <div class="col-md-4">
+            {{ page.footer }}
+          </div>
+          <div class="col-md-4">
+            {% if show_social_links %}
+              <div class="social-links">
+                <h4>{{ 'FOSSEE Social Media'|t }}</h4>
+                <div class="social-icons">
+                  {% set platforms = {
+                    'facebook': facebook_url,
+                    'youtube': youtube_url,
+                    'linkedin': linkedin_url,
+                    'instagram': instagram_url
+                  } %}
+                  {% for platform, url in platforms %}
+                    <a href="{{ url }}" class="social-icon {{ platform }}" title="{{ platform|capitalize }}">
+                      <i class="fab fa-{{ platform }}"></i>
+                    </a>
+                  {% endfor %}
+                </div>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="footer-bottom">
+              <p>&copy; {{ "now"|date("Y") }} {{ footer_text }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  {% endif %}
+
+</div>

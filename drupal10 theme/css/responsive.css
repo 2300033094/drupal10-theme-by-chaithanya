@@ -1,0 +1,248 @@
+/* Responsive Styles for FOSSEE Theme | Usability-focused */
+
+/* Tablets and below (≤ 992px) */
+@media (max-width: 992px) {
+  .container {
+    padding: 0 20px;
+  }
+
+  .header-section {
+    text-align: center;
+  }
+
+  .header-section .row {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .hero-section {
+    padding: 40px 0;
+  }
+
+  .hero-image {
+    position: static;
+    transform: none;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .hero-content {
+    margin-top: 20px;
+  }
+
+  .activity-tabs {
+    flex-direction: column;
+  }
+
+  .activity-tab {
+    width: 100%;
+  }
+
+  .features-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+  }
+
+  .news-notice-section {
+    padding: 20px;
+  }
+}
+
+/* Mobile (≤ 768px) */
+@media (max-width: 768px) {
+  .container {
+    padding: 0 15px;
+  }
+
+  .site-name {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+
+  .hero-section {
+    padding: 30px 0;
+    text-align: center;
+  }
+
+  .hero-quote {
+    font-size: 1.2rem;
+  }
+
+  .hero-image img {
+    width: 80px;
+    height: 80px;
+  }
+
+  .navigation-section .nav-link {
+    padding: 12px 15px;
+    font-size: 0.9rem;
+    display: block;
+  }
+
+  .activity-section {
+    padding: 30px 0;
+  }
+
+  .activity-tab-content {
+    padding: 15px;
+    min-height: 150px;
+  }
+
+  .features-section {
+    padding: 30px 0;
+  }
+
+  .features-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .feature-item {
+    padding: 20px;
+  }
+
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    text-align: center;
+  }
+
+  .social-icons {
+    gap: 10px;
+    justify-content: center;
+  }
+
+  .social-icon {
+    width: 35px;
+    height: 35px;
+  }
+}
+
+/* Small Mobile (≤ 480px) */
+@media (max-width: 480px) {
+  .container {
+    padding: 0 10px;
+  }
+
+  .site-name {
+    font-size: 1.3rem;
+  }
+
+  .hero-quote {
+    font-size: 1.1rem;
+  }
+
+  .navigation-section .nav-link {
+    padding: 10px 12px;
+    font-size: 0.85rem;
+  }
+
+  .news-notice-section {
+    padding: 15px;
+  }
+
+  .activity-tab-header {
+    padding: 12px;
+    font-size: 0.9rem;
+  }
+
+  .activity-tab-content {
+    padding: 12px;
+    font-size: 0.9rem;
+  }
+
+  .feature-item {
+    padding: 15px;
+  }
+
+  .feature-icon {
+    font-size: 2.5rem;
+  }
+
+  .footer-section {
+    padding: 30px 0 15px;
+  }
+}
+
+/* Landscape Mobile */
+@media (max-width: 768px) and (orientation: landscape) {
+  .hero-section {
+    padding: 20px 0;
+  }
+
+  .hero-image img {
+    width: 60px;
+    height: 60px;
+  }
+
+  .hero-quote {
+    font-size: 1rem;
+  }
+}
+
+/* High DPI */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .hero-image img {
+    image-rendering: -webkit-optimize-contrast;
+  }
+}
+
+/* Print View */
+@media print {
+  .navigation-section,
+  .hero-section,
+  .social-links,
+  .footer-section {
+    display: none;
+  }
+
+  .container {
+    max-width: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .header-section {
+    box-shadow: none;
+    border-bottom: 1px solid #000;
+  }
+
+  .news-notice-section,
+  .activity-section,
+  .features-section {
+    box-shadow: none;
+    border: 1px solid #000;
+    margin: 20px 0;
+  }
+}
+
+/* Accessibility: Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background-color: #1a1a1a;
+    --text-color: #ffffff;
+    --white: #2d2d2d;
+    --gray-light: #3a3a3a;
+  }
+
+  body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+  }
+
+  .header-section,
+  .news-notice-section,
+  .feature-item {
+    background-color: var(--white);
+    color: var(--text-color);
+  }
+}
