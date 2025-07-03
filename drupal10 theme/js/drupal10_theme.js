@@ -1,12 +1,12 @@
 /**
  * @file
- * FOSSEE Theme JavaScript functionality.
+ * Drupal 10 Theme JavaScript functionality.
  */
 
 (function ($, Drupal) {
   'use strict';
 
-  Drupal.behaviors.fosseeTheme = {
+  Drupal.behaviors.drupal10Theme = {
     attach: function (context, settings) {
       initActivityTabs(context);
       initHeroSlider(context);
@@ -44,7 +44,6 @@
 
         slides.hide().first().show();
 
-        // Dots container
         const $dots = $('<div class="slider-dots" role="tablist" aria-label="Hero Slider Controls"></div>');
         for (let i = 0; i < slideCount; i++) {
           const $dot = $('<span class="dot" role="tab" tabindex="0" aria-selected="false" data-slide="' + i + '"></span>');
@@ -146,8 +145,8 @@
   }
 
   function initColorCustomization(context) {
-    if (drupalSettings.fosseeTheme && drupalSettings.fosseeTheme.primaryColor) {
-      $(':root').css('--primary-color', drupalSettings.fosseeTheme.primaryColor);
+    if (drupalSettings.drupal10Theme && drupalSettings.drupal10Theme.primaryColor) {
+      $(':root').css('--primary-color', drupalSettings.drupal10Theme.primaryColor);
     }
   }
 
