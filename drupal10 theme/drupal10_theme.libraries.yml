@@ -9,7 +9,7 @@ global-styling:
 
 global-scripts:
   js:
-    js/fossee_theme.js: {}
+    js/drupal10_theme.js: {}
   dependencies:
     - core/drupal
     - core/jquery
