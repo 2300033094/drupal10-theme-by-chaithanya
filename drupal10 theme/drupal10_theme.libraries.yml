@@ -13,17 +13,18 @@ global-scripts:
   dependencies:
     - core/drupal
     - core/jquery
+    - core/drupalSettings
 
 bootstrap:
   css:
     theme:
-      'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css': { type: external }
+      https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css: { type: external }
   js:
-    'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js': { type: external }
+    https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js: { type: external }
   dependencies:
     - core/jquery
 
 fontawesome:
   css:
     theme:
-      'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css': { type: external }
+      https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css: { type: external }
